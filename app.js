@@ -622,10 +622,10 @@
 
   async function buildFavImage() {
     const groups = favGroups();
-    const W = 1080, PAD = 40, IW = W - PAD * 2;
+    const W = 1080, PAD = 40, IW = W - PAD * 2, TOP = 96;   // TOP: 지도 위 여백
     const MAP_H = Math.round(IW * MAP.height / MAP.width);
     const BOOTH_H = 104, BOOK_H = 156, GAP = 22;
-    let H = PAD + MAP_H + 36;
+    let H = TOP + MAP_H + 36;
     groups.forEach((g) => { H += BOOTH_H + g.works.length * BOOK_H + 16 + GAP; });
     H += PAD - GAP;
 
@@ -647,7 +647,7 @@
     const F = (w, px) => `${w} ${px}px Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif`;
 
     ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H);
-    if (mapIm) ctx.drawImage(mapIm, PAD, PAD, IW, MAP_H);
+    if (mapIm) ctx.drawImage(mapIm, PAD, TOP, IW, MAP_H);
 
     const star = (x, y, r) => {   // 채워진 별
       ctx.beginPath();
@@ -658,7 +658,7 @@
       ctx.closePath(); ctx.fillStyle = favC; ctx.fill();
     };
 
-    let y = PAD + MAP_H + 36;
+    let y = TOP + MAP_H + 36;
     groups.forEach((g, gi) => {
       const boxH = BOOTH_H + g.works.length * BOOK_H + 16;
       roundRect(ctx, PAD, y, IW, boxH, 22);
@@ -686,8 +686,10 @@
       // 책 줄
       let by = y + BOOTH_H;
       g.works.forEach(({ w }, wi) => {
-        ctx.strokeStyle = line; ctx.lineWidth = 1.5;
-        ctx.beginPath(); ctx.moveTo(PAD + 24, by); ctx.lineTo(PAD + IW - 24, by); ctx.stroke();
+        if (wi === 0) {   // 부스명 아래 구분선만 (사이드바와 같게 책 사이에는 선 없음)
+          ctx.strokeStyle = line; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.moveTo(PAD + 24, by); ctx.lineTo(PAD + IW - 24, by); ctx.stroke();
+        }
         const cx = PAD + 48, cy = by + 18, CW = 86, CH = 120;
         ctx.fillStyle = "#f3f3f8"; ctx.fillRect(cx, cy, CW, CH);
         const im = covers[gi][wi];
