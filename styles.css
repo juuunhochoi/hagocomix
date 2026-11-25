@@ -478,15 +478,16 @@ button { font: inherit; color: inherit; cursor: pointer; }
   margin: 10px 0;
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 4px 6px;
+  padding: 8px 12px;   /* 컨테이너 안쪽 여백 */
   background: #fff;
 }
 .sb-booth .sb-item:last-child { border-bottom: 0; }
 /* 부스명 아래 구분선: 둥근 끝 없이 직선 (내려받은 사진과 같은 모양) */
-.sb-booth > .sb-item:first-child { border-radius: 0; margin: 0 6px; padding-left: 0; padding-right: 0; }
+.sb-booth > .sb-item:first-child { border-radius: 0; margin: 0 6px; padding: 10px 0; }
 .sb-booth .sb-item.book { padding-left: 14px; border-bottom: 0; }   /* 같은 부스 안의 책은 구분선 없이 */
 /* 담은 책: 부스 정보보다 한 단계 약하게, 조금 안쪽으로 (별 위치는 그대로라 세로 정렬 유지) */
-.sb-booth .sb-item.book { padding-left: 26px; gap: 10px; padding-top: 6px; padding-bottom: 6px; }
+.sb-booth .sb-item.book { padding-left: 26px; gap: 10px; padding-top: 8px; padding-bottom: 8px; }
+.sb-booth .sb-item.book:nth-child(2) { margin-top: 6px; }   /* 부스명 구분선과 첫 책 사이 */
 .sb-item.book .sb-cover { width: 34px; height: 48px; }
 .sb-item.book .sb-main { font-size: 12.5px; }
 .sb-item.book .sb-sub { font-size: 11px; }
